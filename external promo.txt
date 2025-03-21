@@ -1,0 +1,52 @@
+let resourcesArray = [] // put this on top in external promo
+
+// put this inside #e(t, e, s) this function in else condition	
+let edata = e.split(" ")
+let url = edata[1]
+let attempt = edata[edata.length - 1]
+
+function getPathFromUrl(url, excludeParts = []) {
+    try {
+        const parsedUrl = new URL(url);
+        let path = parsedUrl.pathname;
+
+        // Exclude specified parts from the path
+        excludeParts.forEach(part => {
+            path = path.replace(part, "");
+        });
+
+        return `https:${path}`;
+    } catch (error) {
+        console.error("Invalid URL", error);
+        return null;
+    }
+}
+
+function getInstallPath(path, excludeParts = []) {
+    try {
+        
+        // Exclude specified parts from the path
+        excludeParts.forEach(part => {
+            path = path.replace(part, "");
+        });
+
+        return path;
+    } catch (error) {
+        console.error("Invalid URL", error);
+        return null;
+    }
+}
+
+let game_name = "Buddha_Fortune" // game main folder name
+
+// Specify parts of the path to exclude
+let excludeParts = ["/Booongo", game_name]; // change according to game main folder name
+let static_path = getPathFromUrl(url, excludeParts)
+let filenamePath = static_path.split('/')
+let filename = filenamePath[filenamePath.length-1]
+excludeParts = ["https://static.bng.games/gs/gamerunner/5.9.8/", filename]; //chamge according to you gamerunner file
+let installPath = getInstallPath(static_path, excludeParts)
+if(attempt == 0){
+    resourcesArray.push({static_path, filename, installPath})
+    console.log(resourcesArray)
+}
