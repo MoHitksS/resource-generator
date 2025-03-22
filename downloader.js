@@ -772,10 +772,21 @@ let fileLoaderObject = {
   },
 };
 
-function downloadAndSaveFile(sourceUrl, destinationPath, mypath) {
+//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+// take this object from game.blade.php after creating and replace it upside
+
+function downloadAndSaveFile(sourceUrl, destinationPath, mypath, filename) {
+    const excludeFiles = ['gr.js', "index.js"]
   if (!fs.existsSync(mypath)) {
     fs.mkdirSync(mypath, { recursive: true });
+  }else{
+    if(excludeFiles.some((file) => filename == file)){
+        console.log("File Already Included If you Want to add This file remove file from array inside excludeFiles")
+        console.log("-------------------------------------------------------",filename, "------------------------------------")
+        return
+    }
   }
+  
   const file = fs.createWriteStream(destinationPath, { flags: "w" });
 
   https
@@ -803,10 +814,9 @@ function installDynamicData(resource, game_path) {
   resource.forEach((url) => {
     const sourceUrl = url.static_path;
     let mypath = `${game_path}${url.installPath}`;
-    let install = url.installPath;
-    const destinationPath = path.join(mypath, url.filename);
-    console.log({ mypath, game_path, install, sourceUrl, destinationPath });
-    downloadAndSaveFile(sourceUrl, destinationPath, mypath);
+    let filename = url.filename
+    const destinationPath = path.join(mypath, filename);
+    downloadAndSaveFile(sourceUrl, destinationPath, mypath, filename);
   });
 }
 
@@ -814,9 +824,9 @@ function installDynamicData(resource, game_path) {
 // installDynamicData(resourcearray,game_path)
 
 // Read and parse HAR file
-function readHarFile(dirLocation, loaderFile, harFile) {
+function readHarFile(dirLocation, loaderFile, harFile, dirPath, gameName) {
   try {
-    // Read file content
+    // Read Har file content
     let harFilePath = dirLocation+harFile
     const harContent = fs.readFileSync(harFilePath, "utf8");
     const harData = JSON.parse(harContent);
@@ -829,20 +839,19 @@ function readHarFile(dirLocation, loaderFile, harFile) {
     // Use This for making backward \ slash to forward / slash
     // http://mtbink.com/utility/convert-backslash-to-forward-slash.html
 
-    let gameName = "777_Fruity_Classic"; // change game name according to game
-    let game_path = `E:/Bs/Booongo/parsing-game-app/public/Booongo/${gameName}/static.bng.games/`; // Change game name and drive location accroding to you structure
+    let game_path = `${dirPath}public/Booongo/${gameName}/static.bng.games/`;
     entries.forEach((entry, index) => {
       let splitUrl = entry.request.url.split("/");
       let checkIndexFile =
-        entry.request["queryString"] &&
-        entry.request["queryString"][0]["name"] == "token" &&
+        entry.request["queryString"] && entry.request["queryString"].length > 0&&
+        entry.request["queryString"][0]["name"] && entry.request["queryString"][0]["name"] == "token" &&
         entry.request["queryString"][0]["value"] != "";
       if (checkIndexFile) {
-        let indexFilePath = `E:/Bs/Booongo/parsing-game-app/resources/views/Booongo/${gameName}/`;
+        let indexFilePath = `${dirPath}resources/views/Booongo/${gameName}/`;
         let content = entry.response.content.text;
-        let res = createIndexFile(indexFilePath, content, gameName);
+        let res = createIndexFile(indexFilePath, content, gameName, loaderFile);
       }
-
+    
       if (splitUrl[2] == "static.bng.games") {
         let filename = splitUrl[splitUrl.length - 1].split("?")[0];
         let static_path = entry.request.url;
@@ -856,13 +865,12 @@ function readHarFile(dirLocation, loaderFile, harFile) {
     });
 
     if (resource.length > 0 && game_path) {
-      // installDynamicData(resource, game_path)
+      installDynamicData(resource, game_path)
     }
   } catch (error) {
     console.error("Error reading HAR file:", error.message);
   }
 }
-
 
 function getInstallPath(path, excludeParts = []) {
   try {
@@ -878,11 +886,13 @@ function getInstallPath(path, excludeParts = []) {
   }
 }
 
-function createIndexFile(indexFilePath, indexResponse, gameName) {
+function createIndexFile(indexFilePath, indexResponse, gameName, loaderFile) {
   if (!fs.existsSync(indexFilePath)) {
     fs.mkdirSync(indexFilePath, { recursive: true });
   }
   let destinationPath = indexFilePath + "game.blade.php";
+
+  // Writing Game.Blade.php file
   let file = fs.writeFile(
     destinationPath,
     indexResponse,
@@ -922,7 +932,8 @@ function createIndexFile(indexFilePath, indexResponse, gameName) {
     newLoaderObject['gr']['static_path'] = `{{ config('app.app_domain') }}/Booongo/${gameName}/static.bng.games/gs/gamerunner/5.9.9/`  // change gamerunner version only
 
     let indexDestinationPath = dirLocation+loaderFile
-    console.log(indexDestinationPath)
+
+    // Writing Object File For Game.Blade.php
     file = fs.writeFile(
         indexDestinationPath,
         JSON.stringify(newLoaderObject),
@@ -957,5 +968,9 @@ function iterateNestedObject(obj, parentKey = "", excludeFromObject) {
 // Usage
 let harFile = 'harFile.har'
 let loaderFile = 'index.json'
-let dirLocation = "E:/Bs/Resource_Downloader/"; // put your harfile location here
-readHarFile(dirLocation, loaderFile, harFile);
+let dirLocation = "E:/Bs/Resource_Downloader/"; // use location where you putting this script
+
+//
+let dirPath = "E:/Bs/Booongo/parsing-game-app/" // change frontend dir Path add yours
+let gameName = "777_Fruity_Classic"; // change game name according to game 
+readHarFile(dirLocation, loaderFile, harFile, dirPath, gameName);
