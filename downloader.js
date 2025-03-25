@@ -2,7 +2,9 @@ const fs = require("fs");
 const https = require("https");
 const path = require("path");
 require("dotenv").config();
-let fileLoaderObject = {
+
+
+let fileLoaderObject =  {
     "available_games": [{
         "client_url": "https://static-s3.bng.games/gs/clients_kendoo/black_wolf_2/bng.v24.12.5/",
         "name": "black_wolf_2",
@@ -437,10 +439,10 @@ let fileLoaderObject = {
         "title": "Scarab Riches"
     }],
     "desktop": {
-        "client_url": "https://static-s3.bng.games/gs/clients_goreel/olympian_gods/bng.v24.9.5/",
-        "log_url": "//betman.c2.bng.games/vinus-platform/log/olympian_gods/desktop/{QUEUE}/prod/",
-        "revision": "191115a3",
-        "server_url": "//betman.c2.bng.games/vinus-platform/gs/olympian_gods/desktop/{QUEUE}/prod/",
+        "client_url": "https://static-s3.bng.games/gs/clients_goreel/eggs_of_gold/bng.v24.9.6/",
+        "log_url": "//betman.c2.bng.games/vinus-platform/log/eggs_of_gold/desktop/{QUEUE}/prod/",
+        "revision": "22c16309",
+        "server_url": "//betman.c2.bng.games/vinus-platform/gs/eggs_of_gold/desktop/{QUEUE}/prod/",
         "use_cdn": true
     },
     "gr": {
@@ -450,10 +452,10 @@ let fileLoaderObject = {
     },
     "log_url": "//betman.c2.bng.games/vinus-platform/log/",
     "mobile": {
-        "client_url": "https://static-s3.bng.games/gs/clients_goreel/olympian_gods/bng.v24.9.5/",
-        "log_url": "//betman.c2.bng.games/vinus-platform/log/olympian_gods/mobile/{QUEUE}/prod/",
-        "revision": "191115a3",
-        "server_url": "//betman.c2.bng.games/vinus-platform/gs/olympian_gods/mobile/{QUEUE}/prod/",
+        "client_url": "https://static-s3.bng.games/gs/clients_goreel/eggs_of_gold/bng.v24.9.6/",
+        "log_url": "//betman.c2.bng.games/vinus-platform/log/eggs_of_gold/mobile/{QUEUE}/prod/",
+        "revision": "22c16309",
+        "server_url": "//betman.c2.bng.games/vinus-platform/gs/eggs_of_gold/mobile/{QUEUE}/prod/",
         "use_cdn": true
     },
     "options": {
@@ -473,38 +475,38 @@ let fileLoaderObject = {
         "disable_reel_skipping": "0",
         "disable_spin_on_play": "0",
         "exit_url": "",
-        "game_name": "olympian_gods",
+        "game_name": "eggs_of_gold",
         "glory_to_ukraine": "0",
-        "history_url": "https://gate.c2.bng.games/op/vinus/history.html#show=transactions\u0026header=0\u0026exceeds=0\u0026start_date=\u0026end_date=\u0026player_id=vn25157393185384\u0026game_id=166\u0026currency=KRW\u0026mode=REAL\u0026brand=Vinus\u0026tz=0\u0026lang=ko",
+        "history_url": "https://gate.c2.bng.games/op/vinus/history.html#show=transactions\u0026header=0\u0026exceeds=0\u0026start_date=\u0026end_date=\u0026player_id=vn25157393185384\u0026game_id=269\u0026currency=KRW\u0026mode=REAL\u0026brand=Vinus\u0026tz=0\u0026lang=ko",
         "hyper_url": "https://promo-api.hyper.bng.games/process/",
         "i18n": {
-            "bg": "Olympian Gods",
-            "de": "Olympian Gods",
-            "el": "Olympian Gods",
-            "en": "Olympian Gods",
-            "en-soc": "Olympian Gods",
-            "es": "Olympian Gods",
-            "fi": "Olympian Gods",
-            "fr": "Olympian Gods",
-            "id": "Olympian Gods",
-            "it": "Olympian Gods",
-            "ja": "Olympian Gods",
-            "ko": "Olympian Gods",
-            "nl": "Olympian Gods",
-            "no": "Olympian Gods",
-            "pt": "Olympian Gods",
-            "ro": "Olympian Gods",
-            "ru": "Olympian Gods",
-            "sv": "Olympian Gods",
-            "th": "\u0e40\u0e17\u0e1e\u0e40\u0e08\u0e49\u0e32\u0e42\u0e2d\u0e25\u0e34\u0e21\u0e1b\u0e31\u0e2a",
-            "tr": "Olympian Gods",
-            "uk": "Olympian Gods",
-            "vi": "Olympian Gods",
-            "zh": "\u8bf8\u795e\u8363\u8000",
-            "zh-hant": "\u8af8\u795e\u69ae\u8000"
+            "bg": "Eggs of Gold",
+            "de": "Eggs of Gold",
+            "el": "Eggs of Gold",
+            "en": "Eggs of Gold",
+            "en-soc": "Eggs of Gold",
+            "es": "Eggs of Gold",
+            "fi": "Eggs of Gold",
+            "fr": "Eggs of Gold",
+            "id": "Eggs of Gold",
+            "it": "Eggs of Gold",
+            "ja": "Eggs of Gold",
+            "ko": "Eggs of Gold",
+            "nl": "Eggs of Gold",
+            "no": "Eggs of Gold",
+            "pt": "Eggs of Gold",
+            "ro": "Eggs of Gold",
+            "ru": "Eggs of Gold",
+            "sv": "Eggs of Gold",
+            "th": "\u0e41\u0e2e\u0e1b\u0e1b\u0e35\u0e49\u0e40\u0e1a\u0e34\u0e23\u0e4c\u0e14\u0e04\u0e32\u0e23\u0e4c\u0e19\u0e34\u0e27\u0e31\u0e25",
+            "tr": "Eggs of Gold",
+            "uk": "Eggs of Gold",
+            "vi": "Eggs of Gold",
+            "zh": "\u5feb\u4e50\u9e1f\u5609\u5e74\u534e",
+            "zh-hant": "\u5feb\u6a02\u9ce5\u5609\u5e74\u83ef"
         },
         "incognito": "0",
-        "lang": "ko",
+        "lang": "en",
         "min_spin_time": 0,
         "mobile": "0",
         "ping_interval": 30,
@@ -512,7 +514,7 @@ let fileLoaderObject = {
         "profile": "default",
         "project_uid": "4038",
         "provider": "bng",
-        "queue": "2ca7b34502b34eecb6374b6937731714",
+        "queue": "8e840992f16e49fa90f464a97e276216",
         "quickspin": "1",
         "reality_check_interval": 0,
         "replay_url": "//betman.c2.bng.games/vinus-platform/api/vc/replay/create/",
@@ -534,14 +536,14 @@ let fileLoaderObject = {
         "show_winnings": "0",
         "sound": "1",
         "title": "",
-        "token": "95bbc170803d45a197d0ff3c1fcd7c48_2072_Vinus:vn25157393185384",
+        "token": "ef46f99f4ff342ca9e7e3003b0bfbd2c_2072_Vinus:vn25157393185384",
         "wl": "prod"
     },
     "sentry_url": "//betman.c2.bng.games/vinus-platform/snt/",
     "static_domains": {
         "domains_url": "//betman.c2.bng.games/vinus-platform/cdn_domain/",
         "force_domain": "",
-        "log_url": "//betman.c2.bng.games/vinus-platform/log/olympian_gods/desktop/measure_checker/prod/",
+        "log_url": "//betman.c2.bng.games/vinus-platform/log/eggs_of_gold/desktop/measure_checker/prod/",
         "metric_url": "/static/games/cdn_measure.png",
         "timeout": "3000"
     }
@@ -694,8 +696,9 @@ function createIndexFile(indexFilePath, indexResponse, gameName, loaderFile) {
 
   let loaderObject = fileLoaderObject;
   let gameObject = loaderObject.available_games.filter(
-    (games) => games.title == game
-  );
+      (games) => (games.title).replace(/(^\w|\s\w)/g, m => m.toUpperCase()) == game
+    );
+    console.log(gameObject)
   if (gameObject.length > 0) {
     let excludeFromObject = ["log_url", "hyper_url", "sentry_url", "domains_url"];
     let excludeParts = [
