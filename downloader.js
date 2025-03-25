@@ -742,6 +742,11 @@ function storePreDataFile(entry, dirLocation, preDataFile){
     content["real_id"] = real_id
     content["game_name"] = title
     delete content['settings']["authenticity_link"]
+    delete content['status']
+    delete content['user']
+    delete content['session_id']
+    delete content['command']
+    delete content['request_id']
 
     if(content){
         let file = fs.writeFile(
