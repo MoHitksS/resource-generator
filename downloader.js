@@ -737,7 +737,7 @@ function storePreDataFile(entry, dirLocation, preDataFile){
     let destinationPath = dirLocation + preDataFile
     let content = JSON.parse(entry.response.content.text)
     let real_id = entry.request.url.split("/",6).pop()
-    let title = real_id.replace("_", " ")
+    let title = real_id.replaceAll("_", " ")
     title  = title.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
     content["real_id"] = real_id
     content["game_name"] = title
