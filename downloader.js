@@ -1,7 +1,7 @@
 const fs = require("fs");
 const https = require("https");
 const path = require("path");
-
+require("dotenv").config();
 let fileLoaderObject = {
     "available_games": [{
         "client_url": "https://static-s3.bng.games/gs/clients_kendoo/black_wolf_2/bng.v24.12.5/",
@@ -781,9 +781,9 @@ function iterateNestedObject(obj, parentKey = "", excludeFromObject) {
 let harFile = 'harFile.har'
 let loaderFile = 'index.json'
 let preDataFile = "pre-data.json"
-let dirLocation = "E:/Bs/Resource_Downloader/"; // use location where you putting this script
 
-//
-let dirPath = "E:/Bs/Booongo/parsing-game-app/" // change frontend dir Path add yours
-let gameName = "Olympian_Gods"; // change game name according to game 
+let dirLocation = process.env.DIR_LOCATION; // use location where you putting this script
+let dirPath = process.env.DIR_PATH // change frontend dir Path add yours
+let gameName = process.env.GAME_NAME; // change game name according to game
+
 readHarFile(dirLocation, loaderFile, harFile, preDataFile, dirPath, gameName);
