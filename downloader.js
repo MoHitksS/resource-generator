@@ -506,7 +506,7 @@ let fileLoaderObject =  {
             "zh-hant": "\u5feb\u6a02\u9ce5\u5609\u5e74\u83ef"
         },
         "incognito": "0",
-        "lang": "en",
+        "lang": "ko",
         "min_spin_time": 0,
         "mobile": "0",
         "ping_interval": 30,
@@ -514,7 +514,7 @@ let fileLoaderObject =  {
         "profile": "default",
         "project_uid": "4038",
         "provider": "bng",
-        "queue": "8e840992f16e49fa90f464a97e276216",
+        "queue": "a9510e1a7c48433ca780b8d256df2f7b",
         "quickspin": "1",
         "reality_check_interval": 0,
         "replay_url": "//betman.c2.bng.games/vinus-platform/api/vc/replay/create/",
@@ -696,7 +696,7 @@ function createIndexFile(indexFilePath, indexResponse, gameName, loaderFile) {
 
   let loaderObject = fileLoaderObject;
   let gameObject = loaderObject.available_games.filter(
-      (games) => (games.title).replace(/(^\w|\s\w)/g, m => m.toUpperCase()) == game
+      (games) => (games.name).replaceAll("_", " ").replace(/(^\w|\s\w)/g, m => m.toUpperCase()) == game
     );
     console.log(gameObject)
   if (gameObject.length > 0) {
